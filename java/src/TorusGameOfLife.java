@@ -27,9 +27,8 @@ public class TorusGameOfLife extends GameOfLife {
                 //use a nested for loop to copy contents
                 this.board = new int[a.length][a[0].length];
                 this.previous = new int[a.length][a[0].length];
-
                 for(int i = 0; i < a.length; i++){
-                        for(int j = 0; j< a.length; j++){
+                        for(int j = 0; j< a[0].length; j++){
                                 this.previous[i][j] = a[i][j];
                         }
                 }
@@ -50,6 +49,7 @@ public class TorusGameOfLife extends GameOfLife {
                 for(int i = 0; i < previous.length; i++){
                         for(int j = 0; j < previous[i].length; j++){
                                 m = neighbors(i,j);
+
                                 if(isDead(i,j)) {/*if the cell is dead, it must have 3 neighbors to come back to life.*/
                                         if(m == 3){
                                                 previous[i][j] = 1;
@@ -79,76 +79,107 @@ public class TorusGameOfLife extends GameOfLife {
         /*Computes the number of neighbors the corresponding cell on the board has.*/
         @Override
         public int neighbors(int row, int col){
-                r = row-1;
-                c = col-1;
-                r2 = row+1;
-                c2 = col+1;
-                if(r < 0){
-                         r = r % previous.length;
-
-                }
-                if(c < 0){
-                        c = c % previous[0].length;
-                }
-                if(r2 == previous.length){
-                        r2 = (r2 % previous.length) % previous.length;
-                }
-                if(c2 == previous[0].length){
-                        c2 = (c2 % previous[0].length) % previous[0].length;
-                }
-
+                r = 0;
+                c = 0;
+                r2 = 0;
+                c2 = 0;
                 temp = 0;
                 /*row-1, col-1*/
-                if(r >= 0 && c>= 0) {
-                        if (previous[r][c] == 1) {
+                if(row-1>= 0 && col-1 >= 0) {
+                        if (previous[row - 1][col - 1] == 1) {
+                                temp++;
+                        }
+                }
+                if(row-1 < 0 && col-1 < 0){
+                        r = Math.floorMod(row-1, previous.length);
+                        c = Math.floorMod((col-1), previous.length);
+                        if(previous[r][c] == 1){
                                 temp++;
                         }
                 }
 
                 /*row-1, col*/
-                if(r >= 0) {
-                        if (previous[r][col] == 1) {
+                if(row-1 >= 0) {
+                        if (previous[row - 1][col] == 1) {
                                 temp++;
                         }
                 }
-
+                if(row-1 < 0){
+                        if(previous[r][col] == 1){
+                                temp++;
+                        }
+                }
                 /*row-1, col+1*/
-                if(r >= 0 && c2 < previous[0].length) {
-                        if (previous[r][c2] == 1) {
+                if(row-1>= 0 && col+1 < previous[0].length) {
+                        if (previous[row - 1][col + 1] == 1) {
+                                temp++;
+                        }
+                }
+                if(row-1 < 0 && col+1 >= previous[0].length){
+                        c2 = Math.floorMod(col+1, previous[0].length);
+                        if(previous[r][c2] == 1){
                                 temp++;
                         }
                 }
                 /*row, col-1*/
-                if(c >= 0) {
-                        if (previous[row][c] == 1) {
+                if(col-1>= 0) {
+                        if (previous[row][col - 1] == 1) {
+                                temp++;
+                        }
+                }
+                if(col-1 < 0){
+                        if(previous[row][c] == 1){
                                 temp++;
                         }
                 }
                 /*row, col+1*/
-                if(c2 < previous[0].length) {
-                        if (previous[row][c2] == 1) {
+                if(col+1<previous[0].length) {
+                        if (previous[row][col + 1] == 1) {
+                                temp++;
+                        }
+                }
+                if(col+1 >= previous[0].length){
+                        if(previous[row][c2] == 1){
                                 temp++;
                         }
                 }
                 /*row+1, col-1*/
-                if(r2 < previous.length && c >=0) {
-                        if (previous[r2][c] == 1) {
+                if(row+1<previous.length && col-1 >=0) {
+                        if (previous[row + 1][col - 1] == 1) {
+                                temp++;
+                        }
+                }
+                if(row+1 >= previous.length && col-1 < 0){
+                        if(previous[r2][c] == 1){
                                 temp++;
                         }
                 }
                 /*row+1, col*/
-                if(r2 < previous.length) {
-                        if (previous[r2][col] == 1) {
+                if(row+1 < previous.length) {
+                        if (previous[row + 1][col] == 1) {
+                                temp += 1;
+                        }
+                }
+                if(row+1 >= previous.length){
+                        if(previous[r2][col] == 1){
                                 temp++;
                         }
                 }
                 /*row+1, col+1*/
-                if(r2 < previous.length && c2 < previous[0].length) {
-                        if (previous[r2][c2] == 1) {
+                if(row+1 < previous.length && col+1 < previous[0].length) {
+                        if (previous[row + 1][col + 1] == 1) {
                                 temp++;
                         }
                 }
+                if(row+1 >= previous.length && col+1 >= previous[0].length){
+                        if(previous[r2][c2] == 1){
+                                temp++;
+                        }
+                }
+
                 return temp;
+
+
         }
 
         /*Transforms the board into the board after n steps of evolution (i.e., n

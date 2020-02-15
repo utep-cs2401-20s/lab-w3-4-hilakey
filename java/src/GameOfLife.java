@@ -34,7 +34,7 @@ public class GameOfLife {
 
     /*Getters*/
     public int[][] getBoard(){
-        return this.previous;
+        return this.board;
     }
 
     /*Methods*/
@@ -94,7 +94,7 @@ public class GameOfLife {
         }
 
         /*row-1, col+1*/
-        if(row-1>= 0 && col+1 < size) {
+        if(row-1>= 0 && col+1 < previous[0].length) {
             if (previous[row - 1][col + 1] == 1) {
                 temp++;
             }
@@ -106,25 +106,25 @@ public class GameOfLife {
             }
         }
         /*row, col+1*/
-        if(col+1<size) {
+        if(col+1<previous[0].length) {
             if (previous[row][col + 1] == 1) {
                 temp++;
             }
         }
         /*row+1, col-1*/
-        if(row+1<size && col-1 >=0) {
+        if(row+1<previous.length && col-1 >=0) {
             if (previous[row + 1][col - 1] == 1) {
                 temp++;
             }
         }
         /*row+1, col*/
-        if(row+1 < size) {
+        if(row+1 < previous.length) {
             if (previous[row + 1][col] == 1) {
                 temp++;
             }
         }
         /*row+1, col+1*/
-        if(row+1 < size && col+1 < size) {
+        if(row+1 < previous.length && col+1 < previous[0].length) {
             if (previous[row + 1][col + 1] == 1) {
                 temp++;
             }
