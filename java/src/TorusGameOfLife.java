@@ -79,7 +79,7 @@ public class TorusGameOfLife extends GameOfLife {
         /*Computes the number of neighbors the corresponding cell on the board has.*/
         @Override
         public int neighbors(int row, int col){
-               
+
                 temp = 0;
                 /*row-1, col-1*/
                 if(row-1>= 0 && col-1 >= 0) {

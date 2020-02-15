@@ -138,7 +138,6 @@ public class TORUS_GOL {
             int[][] testBoard = {{1,1,1}, {1,1,1},{1,1,1}};
             TorusGameOfLife game3 = new TorusGameOfLife(testBoard);
             /*expected board*/
-            assertEquals(8,game3.neighbors(0,0) );
             game3.printBoard(testBoard);
             int[][] b = {{0,0,0},{0,0,0},{0,0,0}};
             game3.evolution(1);
@@ -192,6 +191,7 @@ public class TORUS_GOL {
 
         @Test
         public void testGOLEvolution4(){
+            /*initial board*/
             int[][] testBoard = {{0,0,0,0,0,0},
                                 {0,1,1,0,0,0},
                                 {0,1,1,0,0,0},
@@ -201,17 +201,20 @@ public class TORUS_GOL {
             TorusGameOfLife game5 = new TorusGameOfLife(testBoard);
             System.out.println("Board");
             game5.evolution(5);
+            /*expected board*/
             int[][] b = {{0,0,0,0,0,0},{0,1,1,0,0,0},{0,1,0,0,0,0},{0,0,0,1,1,0},{0,0,0,0,1,0},{0,0,0,0,0,0,}};
             assertArrayEquals(b, testBoard);
         }
 
         @Test
         public void testGOLEvolution5(){
+            /*initial board*/
             int[][] testBoard = {{1,0,1,1},{1,1,0,0},{1,1,1,0,},{1,1,1,1}};
             TorusGameOfLife game6 = new TorusGameOfLife(testBoard);
             System.out.println("Board");
             game6.printBoard(testBoard);
             game6.evolution(1);
+            /*expected board*/
             int[][] b = {{1,0,1,0}, {0,0,0,1}, {0,0,0,0,1},{1,0,0,1}};
             assertArrayEquals(b,testBoard);
         }
